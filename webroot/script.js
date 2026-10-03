@@ -773,9 +773,10 @@ class AstraEngine {
     matchKeyword(a) {
         const k = this.keyword;
         if (!k) return true;
-        return (a.name || '').toLowerCase().indexOf(k) >= 0 ||
-            a.pkg.toLowerCase().indexOf(k) >= 0 ||
-            this.pkgLabel(a.pkg).toLowerCase().indexOf(k) >= 0;
+        if (a.name.toLowerCase().indexOf(k) >= 0) return true;
+        if (a.pkg.toLowerCase().indexOf(k) >= 0) return true;
+        if (!a.name) return this.pkgLabel(a.pkg).toLowerCase().indexOf(k) >= 0;
+        return false;
     }
 
     appAvatar(a) {
